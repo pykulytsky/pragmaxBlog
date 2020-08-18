@@ -1,0 +1,180 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'blog/style.css'%}">
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2&family=Lobster&family=Overpass:ital@1&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lemonada:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Alata&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@700&family=Recursive:wght@300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css" integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'post.css'%}">
+    <link rel="icon" href="{% static 'blog/img/blog.svg' %}">
+    <style>
+    
+      .nav-link-red {
+        color: red;
+        margin-top: 8px;
+      }
+      .nav-link-green {
+        color: green;
+        margin-top: 8px;
+      }
+    </style>
+    <title>{{ post.title }}</title>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <a class="navbar-brand" href="#">Blog</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+            </button>
+        
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item active">
+                <a class="nav-link hvr-grow" href="{% url 'home' %}">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                <a class="nav-link hvr-grow" href="{% url 'by_category' 'sport' %}">Categories</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link hvr-grow" href="{% url 'all_posts' %}">Posts</a>
+                </li>
+                {% if not user.is_authenticated %}
+                <li class="nav-item">
+                    <a class="nav-link-green hvr-grow" href="{% url 'register' %}">Sing in</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link-green hvr-grow" href="{% url 'lgin' %}">Sing up</a>
+                </li>
+                {% endif %}
+                {% if user.is_authenticated %}
+                <li class="nav-item">
+                    <a class="nav-link-red hvr-grow" href="{% url 'logout' %}">Logout</a>
+                </li>
+          
+                {% endif %}
+
+            </ul>
+        </div>
+        </div>
+      </nav>
+
+      <div class="container post-body">
+
+        <h1 class="text-center post-title">{{ post.title }}</h1>
+        <div class="container">
+            <p class="leftstr"><i class="fas fa-user-alt"></i>  <a class="user" href="#">{{ post.author }}</a></p>
+            <p class="rightstr"><i class="fas fa-eye">{{ post.views }}</i></p>
+            <div style="clear: left"></div>
+        </div> 
+        <div class="container">
+        {% if post.photo %}
+          <p class="post-content"><img src="{{ post.photo.url }}" alt="">{{ post.content|safe }}</p>
+        {% else %}
+          <p class="post-content">{{ post.content|safe }}</p>
+        {% endif %}
+        </div>
+      </div>
+      {% if related_posts %}
+        <div class="container related-posts">
+          <h3 class="text-center">Related Posts</h3>
+          <div class="row">
+            <div class="col-md-9">
+            {% for post in related_posts %}
+              <p class="r-post"><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></p>
+            {% endfor %}  
+            </div>
+            <div class="col-md-3">
+              {% for post in related_posts %}
+                <p class="r-post">by <i class="fas fa-user-alt"></i>{{ post.author }}</p>
+                
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      {%endif%}
+      {% if comments %}
+        <div class="container comment-body">
+          <!-- <h2 class="text-center"> Comments </h1> -->
+          <div class="row">
+              
+              <div class="col-md-8">
+                <div class="page-header">
+                  
+                  <small class="pull-right">{{ comments_count }} comment(s)</small>
+                </div> 
+                <div class="comments-list">
+                {% for comment in comments %}
+                  <div class="media">
+                        <p class="pull-right"><small>{{ comment.created }}</small></p>
+                          <a class="media-left" href="#">
+                            <img src="http://lorempixel.com/40/40/people/4/">
+                          </a>
+                          <div class="media-body">
+                              
+                            <h4 class="media-heading user_name">{{ comment.author }}</h4>
+                            {{ comment.body }}
+                            
+                            <p><small><a href=""><i class="far fa-heart"></i>  Like</a> - <a href=""><i class="fas fa-share-alt"></i>  Share</a></small></p>
+                          </div>
+                        
+                  </div>
+                {% endfor %}
+                  {% endif %}
+                  
+              </div>
+          </div>
+      </div>
+
+      <div class="container add-comment">
+      
+          <h3>Leave a comment</h3>
+          {% if comment_form.errors %}
+          {% endif %}
+          <form method="post">
+            {% csrf_token %}
+            
+            <textarea rows="10" name="body" id="comment" placeholder="Comment"></textarea>
+            <button type="submit" class="btn btn-primary  btn-lg">Submit</button>
+          </form>
+      </div>
+      </div>
+      <footer class="page-footer font-small unique-color-dark pt-4">
+
+        <!-- Footer Elements -->
+        <div class="container">
+
+          <!-- Call to action -->
+          <ul class="list-unstyled list-inline text-center py-2">
+            {% if not user.is_authenticated %}
+            <li class="list-inline-item">
+              <h5 class="mb-1">Register your own blog</h5>
+            </li>
+            <li class="list-inline-item">
+              <a href="{% url 'register' %}" class="btn btn-outline-white btn-rounded hvr-grow">Sign up!</a>
+            </li>
+          </ul>
+          {% endif %}
+          </ul>
+          <!-- Call to action -->
+
+        </div>
+        <!-- Footer Elements -->
+
+        <!-- Copyright -->
+        <div class="footer-copyright text-center py-3">© 2020 Copyright:
+          <a href="https://mdbootstrap.com/">Pragmatic Once</a>
+        </div>
+        <!-- Copyright -->
+
+      </footer>
+</body>
+</html>

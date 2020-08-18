@@ -1,0 +1,160 @@
+.post-body {
+    background-color: #212529;
+    color: white;
+    margin-top: 25px;
+    border-radius: 10px;
+    padding : 50px
+}
+
+.post-body h1 {
+    font-family: 'Lobster', cursive;
+}
+
+.post-body .post {
+    padding : 20px;
+    padding-left: 50px;
+    padding-right: 50px;
+    line-height: 2em;
+}
+
+.blog-info {
+    display: inline;
+}
+
+.blog-info p {
+    display: inline-table;
+}
+
+
+.leftstr, .rightstr {
+    float: left; /* Обтекание справа */ 
+    width: 50%; /* Ширина текстового блока */ 
+}
+.rightstr {
+    text-align: right; /* Выравнивание по правому краю */ 
+}
+
+.post-body img {
+    max-width: 1010px;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    border-radius: 5px;
+}
+
+.related-posts {
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+
+@media only screen and (max-width: 1196px) {
+    .post-body img {
+        max-width: 830px;
+    }
+}
+
+@media only screen and (max-width: 991px) {
+    .post-body img {
+        max-width: 590px;
+    }
+}
+
+@media only screen and (max-width: 767px) {
+    .post-body img {
+        max-width: 420px;
+    }
+}
+
+.user_name{
+    font-size:14px;
+    font-weight: bold;
+}
+
+
+/* .comment-body {
+    background-color: #212529;
+    color: white;
+    margin-top: 25px;
+    border-radius: 10px;
+    padding: 35px;
+    margin-bottom: 25px;
+} */
+
+
+.media {
+    background-color: #212529;
+    padding: 10px;
+    margin: 10px;
+    color: #ffffff;
+    border-radius: 5px;
+}
+
+.pull-right {
+    margin-right: 15px;
+    color: #fff;
+}
+
+.media-left {
+    margin: 15px;
+}
+
+
+.related-posts {
+    background-color: #212529;
+    border-radius: 10px;
+    padding : 25px;
+}
+
+.related-posts h3 {
+    color: #fff;
+   
+}
+
+.related-posts .r-post {
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-top: 25px;
+    margin-bottom: 25px;
+    font-weight: bold;
+    padding : 5px;
+    padding-left: 20px;
+    color: black;
+    border-radius: 8px;
+    font-size: 20px;
+    background-color: #007bff;;
+}
+
+.related-posts a {
+    color: #fff;
+}
+
+.related-posts a:hover {
+    color: black;
+}
+
+
+.add-comment {
+    background-color: #212529;
+    border-radius: 10px;
+    padding: 30px;
+    margin-bottom: 50px;    
+    
+}
+
+
+
+
+
+.add-comment h3, p {
+    color: white;
+}
+
+textarea {
+    width: 100%;
+    height: 150px;
+    padding: 12px 20px;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    background-color: #f8f8f8;
+    resize: none;
+  }
