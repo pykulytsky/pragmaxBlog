@@ -9,25 +9,25 @@ Use the package manager [pip](https://pip.pypa.io/en/stable/) to install all req
 
 To launch project:
 * Clone this repository
-    """shell
-        git clone https://github.com/pykulytsky/pragmaxBlog.git
+    """bash
+    git clone https://github.com/pykulytsky/pragmaxBlog.git
     """
 * Install all requirements 
     """bash
-        pip3 install -r requirements.txt
+    pip3 install -r requirements.txt
     """
 * Go to master directory
-    """shell
+    """bash
         cd pragmaxBlog
     """
 * Edit pragmaxBlog/settings.py
 * Migrate db changes
-    """shell
-        python manage.py migrate
+    """bash
+    python manage.py migrate
     """
 * Set flag DEBUG=True in settings file
 
 * Run django debug server
-    """shell
-        python manage.py runserver
+    """bash
+    python manage.py runserver
     """
