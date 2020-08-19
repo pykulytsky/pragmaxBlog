@@ -1,0 +1,5 @@
+<ul class="list-group sidebar">
+    {% for category in categories %}
+        <li class="list-group-item hvr-grow"><a href="{{ category.get_absolute_url }}">{{category}}</a></li>
+    {% endfor %}
+</ul>

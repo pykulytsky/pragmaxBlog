@@ -13,6 +13,7 @@ from decouple import config
 
 import os
 
+import logging
 
 from pathlib import Path
 
@@ -32,6 +33,8 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 
+
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -46,6 +49,28 @@ INSTALLED_APPS = [
     
     'ckeditor',
 ]
+
+LOGGING = {
+    'version': 1,
+    'disabel_existing_loggers': False,
+    'handlers': {
+        'file': {
+            'level': 'INFO',
+            'class': 'logging.FileHandler',
+            'filename': 'E:/reposPython/pragmaxBlog/pragmaxBlog/logs/log.log',
+        },
+    
+    },
+    'loggers' : {
+        'blog': {
+            'handlers': ['file'],
+            'level': 'INFO',
+            'prepogate': True,
+        }
+    }
+}
+
+LOG_PATH = os.path.join(BASE_DIR, 'logs')
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

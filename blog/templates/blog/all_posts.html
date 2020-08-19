@@ -1,149 +1,63 @@
+{% extends 'base.html' %}
 {% load static %}
 {% load home_photos %}
-<!doctype html>
-<html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css" integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc" crossorigin="anonymous">
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-    <link rel="stylesheet" href="{% static 'blog/style.css'%}">
-    <link href="https://fonts.googleapis.com/css2?family=Exo+2&family=Lobster&family=Overpass:ital@1&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Lemonada:wght@700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Alata&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@700&family=Recursive:wght@300&display=swap" rel="stylesheet">
-    <link rel="icon" href="{% static 'blog/img/blog.svg' %}">
-    <style>
+
+    {% block style %}
+      <style>
+        .nav-link-red {
+          color: red;
+          margin-top: 8px;
+        }
+        .nav-link-green {
+          color: green;
+          margin-top: 8px;
+        }
+      </style>
+    {% endblock style %}
     
-      .nav-link-red {
-        color: red;
-        margin-top: 8px;
-      }
-      .nav-link-green {
-        color: green;
-        margin-top: 8px;
-      }
-    </style>
-    <title>All Posts</title>
-
-  </head>
-  <body>
-    <nav class="navbar navbar-expand-lg">
-        <div class="container">
-            <a class="navbar-brand" href="#">Blog</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-            </button>
-        
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item active">
-                <a class="nav-link hvr-grow" href="{% url 'home' %}">Home <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item">
-                <a class="nav-link hvr-grow" href="{% url 'by_category' 'sport' %}">Categories</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link hvr-grow" href="#">Posts</a>
-                </li>
-                {% if not user.is_authenticated %}
-                <li class="nav-item">
-                    <a class="nav-link-green hvr-grow" href="{% url 'register' %}">Sing in</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link-green hvr-grow" href="{% url 'lgin' %}">Sing up</a>
-                </li>
-                {% endif %}
-                {% if user.is_authenticated %}
-                <li class="nav-item">
-                    <a class="nav-link-red hvr-grow logout-link" href="{% url 'logout' %}">Logout</a>
-                </li>
-          
-                {% endif %}
-            </ul>
-        </div>  
-        </div>
-      </nav>
+    {% block title %}pragmax BLOG
+    {% endblock title %}
+  
+    
       
+      {% block carousel %}
+      {% endblock carousel %}
+    
+      {% block landing %}
+      {% endblock landing %}
+  
 
 
-      <div class="container card-container">
-        <div class="row">
-          <div class="col-md-8">
-          {% for post in posts_by_category %}
-            <div class="card mb-4 text-white bg-dark">
-              <img class="card-img-top" src="{{ post.photo.url }}" alt="Card image cap">
-              <div class="card-body">
-                <h5 class="card-title">{{ post.title }}</h5>
-                <p class="card-text">{{ post.content|truncatewords_html:10|safe }}</p>
-                <p><i class="fas fa-eye"></i> {{ post.views }}</p>
-                <a href="{{ post.get_absolute_url }}" class="btn btn-outline-light btn-sm btn-hvr-grow">Read...</a>
-              </div>
-            </div> 
-            {% endfor %}
-          </div>
-            <div class="col-md-4">
-              <ul class="list-group sidebar">
-                {% for category in categories %}
-                <li class="list-group-item hvr-grow"><a href="{{ category.get_absolute_url }}">{{category}}</a></li>
-                {% endfor %}
-              </ul>
+
+      {% block content %}
+        <div class="container card-container">
+          <div class="row">
+            <div class="col-md-8">
+            {% for post in posts_by_category %}
+              <div class="card mb-4 text-white bg-dark">
+                <img class="card-img-top" src="{{ post.photo.url }}" alt="Card image cap">
+                <div class="card-body">
+                  <h5 class="card-title">{{ post.title }}</h5>
+                  <p class="card-text">{{ post.content|truncatewords_html:10|safe }}</p>
+                  <p><i class="fas fa-eye"></i> {{ post.views }}</p>
+                  <a href="{{ post.get_absolute_url }}" class="btn btn-outline-light btn-sm btn-hvr-grow">Read...</a>
+                </div>
+              </div> 
+              {% endfor %}
             </div>
+              <div class="col-md-4">
+                <ul class="list-group sidebar">
+                  {% for category in categories %}
+                  <li class="list-group-item hvr-grow"><a href="{{ category.get_absolute_url }}">{{category}}</a></li>
+                  {% endfor %}
+                </ul>
+              </div>
+        
+                          
+          </div>
+        </div>
+      {% endblock content %}
       
-                        
-        </div>
-      </div>
-
-      <div class="container">
-        <ul class="pagination">
-                      <li class="hvr-grow" class="disabled"><a href="#">«</a></li>
-                      <li class="hvr-grow" class="disabled"><a href="#">1 <span class="sr-only">(current)</span></a></li>
-                      <li class="hvr-grow" class="disabled"><a href="#">2</a></li>
-                      <li class="hvr-grow" class="disabled"><a href="#">3</a></li>
-                      <li class="hvr-grow" class="disabled"><a href="#">4</a></li>
-                      <li class="hvr-grow" class="disabled"><a href="#">5</a></li>
-                      <li class="hvr-grow" class="disabled"><a href="#">»</a></li>
-                    </ul>
-        </div>
 
       <!-- Footer -->
-      <footer class="page-footer font-small unique-color-dark pt-4">
-
-        <!-- Footer Elements -->
-        <div class="container">
-
-          <!-- Call to action -->
-          <ul class="list-unstyled list-inline text-center py-2">
-            {% if not user.is_authenticated %}
-            <li class="list-inline-item">
-              <h5 class="mb-1">Register your own blog</h5>
-            </li>
-            <li class="list-inline-item">
-              <a href="{% url 'register' %}" class="btn btn-outline-white btn-rounded hvr-grow">Sign up!</a>
-            </li>
-          </ul>
-          {% endif %}
-          </ul>
-          <!-- Call to action -->
-
-        </div>
-        <!-- Footer Elements -->
-
-        <!-- Copyright -->
-        <div class="footer-copyright text-center py-3">© 2020 Copyright:
-          <a href="https://mdbootstrap.com/">Pragmatic Once</a>
-        </div>
-        <!-- Copyright -->
-
-      </footer>
-<!-- Footer -->
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
-  </body>
-</html>
+      

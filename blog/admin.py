@@ -33,6 +33,13 @@ class CategoryAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('title',)}
     
     
+@admin.register(Tag)
+class TagAdmin(admin.ModelAdmin):
+    list_display = ('title', )
+    list_display_links = ('title',)
+    prepopulated_fields = {'slug': ('title',)}    
+    
+    
 @admin.register(Comment)
 class CommentAdmin(admin.ModelAdmin):
     list_display = ('author', 'created', 'active',)
@@ -40,3 +47,9 @@ class CommentAdmin(admin.ModelAdmin):
     list_editable = ('active',)    
     
     readonly_fields = ('created',)
+
+
+@admin.register(Profile)
+class ProfileAdmin(admin.ModelAdmin):
+    list_display = ('user', 'post_write_permission', 'post_counts')
+    list_editable = ('post_write_permission', )

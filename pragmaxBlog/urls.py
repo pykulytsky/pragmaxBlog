@@ -30,6 +30,7 @@ urlpatterns = [
     path('register/', blog_views.register, name="register"),
     path('post/<str:slug>', blog_views.single_post, name='post_detail'),
     path('category/<str:slug>', blog_views.by_category, name="by_category"),
+    path('tag/<str:slug>', blog_views.by_tag, name="by_tag"),
     path('all_posts/', blog_views.all_posts, name="all_posts")
 ]
 

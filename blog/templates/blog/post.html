@@ -52,7 +52,7 @@
                     <a class="nav-link-green hvr-grow" href="{% url 'register' %}">Sing in</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link-green hvr-grow" href="{% url 'lgin' %}">Sing up</a>
+                    <a class="nav-link-green hvr-grow" href="{% url 'login' %}">Sing up</a>
                 </li>
                 {% endif %}
                 {% if user.is_authenticated %}
@@ -113,7 +113,25 @@
                 </div> 
                 <div class="comments-list">
                 {% for comment in comments %}
+                {% if comment.author == current_user %}
                   <div class="media">
+                      
+                        <p class="pull-right"><small>{{ comment.created }}</small></p>
+                          <a class="media-left" href="#">
+                            <img src="http://lorempixel.com/40/40/people/4/">
+                          </a>
+                          <div class="media-body">
+                              
+                            <h4 class="media-heading user_name">Your comment</h4>
+                            {{ comment.body }}
+                            
+                            <p><small><a href=""><i class="far fa-heart"></i>  Like</a> - <a href=""><i class="fas fa-share-alt"></i>  Share</a></small></p>
+                          </div>
+                        
+                  </div>
+                {% else %}
+                  <div class="media">
+                      
                         <p class="pull-right"><small>{{ comment.created }}</small></p>
                           <a class="media-left" href="#">
                             <img src="http://lorempixel.com/40/40/people/4/">
@@ -127,26 +145,30 @@
                           </div>
                         
                   </div>
+                {% endif %}
                 {% endfor %}
-                  {% endif %}
+                {% endif %}
                   
               </div>
           </div>
       </div>
 
-      <div class="container add-comment">
-      
-          <h3>Leave a comment</h3>
-          {% if comment_form.errors %}
+      {% if user.is_authenticated %}
+        <div class="container add-comment">
+        
+            <h3>Leave a comment</h3>
+            {% if comment_form.errors %}
+            {% endif %}
+            <form method="post">
+              {% csrf_token %}
+              
+              <textarea rows="10" name="body" id="comment" placeholder="Comment"></textarea>
+              <button type="submit" class="btn btn-primary  btn-lg">Submit</button>
+            </form>
+          </div>
           {% endif %}
-          <form method="post">
-            {% csrf_token %}
-            
-            <textarea rows="10" name="body" id="comment" placeholder="Comment"></textarea>
-            <button type="submit" class="btn btn-primary  btn-lg">Submit</button>
-          </form>
-      </div>
-      </div>
+        </div>
+      
       <footer class="page-footer font-small unique-color-dark pt-4">
 
         <!-- Footer Elements -->

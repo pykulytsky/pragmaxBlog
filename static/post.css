@@ -88,6 +88,14 @@
     border-radius: 5px;
 }
 
+.media-current {
+    background-color: #4b4f53;
+    padding: 10px;
+    margin: 10px;
+    color: #ffffff;
+    border-radius: 5px;
+}
+
 .pull-right {
     margin-right: 15px;
     color: #fff;
@@ -135,18 +143,26 @@
 .add-comment {
     background-color: #212529;
     border-radius: 10px;
-    padding: 40px, 20px;
+    padding: 30px;
+    margin-bottom: 50px;    
+    
 }
 
-.add-comment input[type=text] {
-    width: 75%;
-    height: 30px;
-}
 
-.add-comment textarea {
-    width: 75%;
-}
+
+
 
 .add-comment h3, p {
     color: white;
 }
+
+textarea {
+    width: 100%;
+    height: 150px;
+    padding: 12px 20px;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    background-color: #f8f8f8;
+    resize: none;
+  }

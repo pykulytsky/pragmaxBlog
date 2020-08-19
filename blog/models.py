@@ -14,6 +14,16 @@ class Category(models.Model):
         return reverse("by_category", kwargs={"slug": self.slug})
     
 
+class Tag(models.Model):
+    title = models.CharField(max_length=128, blank=False, verbose_name="Tag Title")
+    slug = models.SlugField(unique=True, verbose_name="Slug")
+    
+    def __str__(self):
+        return self.title
+    
+    def get_absolute_url(self):
+        return reverse("by_tag", kwargs={"slug": self.slug})
+
 
 class Post(models.Model):
     title = models.CharField(max_length=128, blank=False, verbose_name="Post Title")
@@ -51,3 +61,12 @@ class Comment(models.Model):
     
     class Meta:
         ordering = ['created']
+        
+        
+        
+class Profile(models.Model):
+    
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    photo = models.ImageField(verbose_name='Profile photo', upload_to=f"assets/photos/users/", blank=True)
+    post_write_permission = models.BooleanField(default=True)
+    post_counts = models.IntegerField(default=0)

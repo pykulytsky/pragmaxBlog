@@ -88,6 +88,14 @@
     border-radius: 5px;
 }
 
+.media-current {
+    background-color: #000000;
+    padding: 10px;
+    margin: 10px;
+    color: #ffffff;
+    border-radius: 5px;
+}
+
 .pull-right {
     margin-right: 15px;
     color: #fff;
